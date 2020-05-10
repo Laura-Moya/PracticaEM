@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="GestionAsignaturas - CodigoFuente/src"/>
+	<classpathentry kind="lib" path="GestionAsignaturas - CodigoFuente/lib/mysql-connector-java-5.1.15-bin.jar"/>
+	<classpathentry kind="lib" path="GestionAsignaturas - Ejecutable/Ejecutable/EUI Notes.jar"/>
+	<classpathentry kind="lib" path="GestionAsignaturas - Ejecutable/Ejecutable/lib/mysql-connector-java-5.1.15-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
