@@ -2,13 +2,13 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-CREATE SCHEMA IF NOT EXISTS `pfc` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-USE `pfc` ;
+CREATE SCHEMA IF NOT EXISTS `gestionasignaturas` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+USE `gestionasignaturas` ;
 
 -- -----------------------------------------------------
--- Table `pfc`.`ALUMNO`
+-- Table `gestionasignaturas`.`ALUMNO`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`ALUMNO` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`ALUMNO` (
   `DNI` VARCHAR(16) NOT NULL ,
   `N_Mat` VARCHAR(8) NOT NULL ,
   `Nombre` VARCHAR(32) NOT NULL ,
@@ -19,9 +19,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`GRUPO_CLASE`
+-- Table `gestionasignaturas`.`GRUPO_CLASE`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`GRUPO_CLASE` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`GRUPO_CLASE` (
   `Cod_GC` VARCHAR(16) NOT NULL ,
   PRIMARY KEY (`Cod_GC`) ,
   UNIQUE INDEX `Cod_GC_UNIQUE` (`Cod_GC` ASC) )
@@ -29,9 +29,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`PROFESOR`
+-- Table `gestionasignaturas`.`PROFESOR`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`PROFESOR` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`PROFESOR` (
   `Cod_P` INT NOT NULL ,
   `Nombre` VARCHAR(32) NOT NULL ,
   `Apellidos` VARCHAR(64) NOT NULL ,
@@ -41,9 +41,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`CURSO`
+-- Table `gestionasignaturas`.`CURSO`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`CURSO` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`CURSO` (
   `Cod_CURSO` INT NOT NULL ,
   `actual` BIT NULL ,
   PRIMARY KEY (`Cod_CURSO`) )
@@ -51,9 +51,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`imparte`
+-- Table `gestionasignaturas`.`imparte`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`imparte` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`imparte` (
   `PROFESOR_Cod_P` INT NOT NULL ,
   `GRUPO_CLASE_Cod_GC` VARCHAR(16) NOT NULL ,
   `CURSO_Cod_CURSO` INT NOT NULL ,
@@ -62,26 +62,26 @@ CREATE  TABLE IF NOT EXISTS `pfc`.`imparte` (
   INDEX `fk_imparte_CURSO1` (`CURSO_Cod_CURSO` ASC) ,
   CONSTRAINT `fk_PROFESOR_has_GRUPO_CLASE_PROFESOR1`
     FOREIGN KEY (`PROFESOR_Cod_P` )
-    REFERENCES `pfc`.`PROFESOR` (`Cod_P` )
+    REFERENCES `gestionasignaturas`.`PROFESOR` (`Cod_P` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_PROFESOR_has_GRUPO_CLASE_GRUPO_CLASE1`
     FOREIGN KEY (`GRUPO_CLASE_Cod_GC` )
-    REFERENCES `pfc`.`GRUPO_CLASE` (`Cod_GC` )
+    REFERENCES `gestionasignaturas`.`GRUPO_CLASE` (`Cod_GC` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_imparte_CURSO1`
     FOREIGN KEY (`CURSO_Cod_CURSO` )
-    REFERENCES `pfc`.`CURSO` (`Cod_CURSO` )
+    REFERENCES `gestionasignaturas`.`CURSO` (`Cod_CURSO` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`GRUPO_PRACTICA`
+-- Table `gestionasignaturas`.`GRUPO_PRACTICA`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`GRUPO_PRACTICA` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`GRUPO_PRACTICA` (
   `Cod_GP` INT NOT NULL ,
   `activo` BIT NULL ,
   PRIMARY KEY (`Cod_GP`) )
@@ -89,18 +89,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`PRACTICA`
+-- Table `gestionasignaturas`.`PRACTICA`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`PRACTICA` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`PRACTICA` (
   `Cod_Practica` VARCHAR(32) NOT NULL ,
   PRIMARY KEY (`Cod_Practica`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`TIPO_EVALUACION`
+-- Table `gestionasignaturas`.`TIPO_EVALUACION`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`TIPO_EVALUACION` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`TIPO_EVALUACION` (
   `Ev_Continua` TINYINT(1)  NOT NULL ,
   `Peso_Ex` FLOAT NOT NULL ,
   `Peso_Pr` FLOAT NOT NULL ,
@@ -110,18 +110,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`EXAMEN`
+-- Table `gestionasignaturas`.`EXAMEN`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`EXAMEN` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`EXAMEN` (
   `Cod_Ex` VARCHAR(32) NOT NULL ,
   PRIMARY KEY (`Cod_Ex`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`CONVOCATORIA`
+-- Table `gestionasignaturas`.`CONVOCATORIA`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`CONVOCATORIA` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`CONVOCATORIA` (
   `idCONVOCATORIA` VARCHAR(16) NOT NULL ,
   `actual` BIT NULL ,
   PRIMARY KEY (`idCONVOCATORIA`) )
@@ -129,9 +129,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`EVALUACION`
+-- Table `gestionasignaturas`.`EVALUACION`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`EVALUACION` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`EVALUACION` (
   `Cod_Evaluacion` INT NOT NULL ,
   `ALUMNO_DNI` VARCHAR(16) NOT NULL ,
   `GRUPO_PRACTICA_Cod_GP` INT NULL ,
@@ -159,46 +159,46 @@ CREATE  TABLE IF NOT EXISTS `pfc`.`EVALUACION` (
   INDEX `fk_EVALUACION_CONVOCATORIA1` (`CONVOCATORIA_idCONVOCATORIA` ASC) ,
   CONSTRAINT `fk_EVALUACION_ALUMNO1`
     FOREIGN KEY (`ALUMNO_DNI` )
-    REFERENCES `pfc`.`ALUMNO` (`DNI` )
+    REFERENCES `gestionasignaturas`.`ALUMNO` (`DNI` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_GRUPO_PRACTICA1`
     FOREIGN KEY (`GRUPO_PRACTICA_Cod_GP` )
-    REFERENCES `pfc`.`GRUPO_PRACTICA` (`Cod_GP` )
+    REFERENCES `gestionasignaturas`.`GRUPO_PRACTICA` (`Cod_GP` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_PRACTICA1`
     FOREIGN KEY (`PRACTICA_Cod_Practica` )
-    REFERENCES `pfc`.`PRACTICA` (`Cod_Practica` )
+    REFERENCES `gestionasignaturas`.`PRACTICA` (`Cod_Practica` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_TIPO_EVALUACION1`
     FOREIGN KEY (`TIPO_EVALUACION_Ev_Continua` )
-    REFERENCES `pfc`.`TIPO_EVALUACION` (`Ev_Continua` )
+    REFERENCES `gestionasignaturas`.`TIPO_EVALUACION` (`Ev_Continua` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_EXAMEN1`
     FOREIGN KEY (`EXAMEN_Cod_Ex` )
-    REFERENCES `pfc`.`EXAMEN` (`Cod_Ex` )
+    REFERENCES `gestionasignaturas`.`EXAMEN` (`Cod_Ex` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_CURSO1`
     FOREIGN KEY (`CURSO_Cod_CURSO` )
-    REFERENCES `pfc`.`CURSO` (`Cod_CURSO` )
+    REFERENCES `gestionasignaturas`.`CURSO` (`Cod_CURSO` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_EVALUACION_CONVOCATORIA1`
     FOREIGN KEY (`CONVOCATORIA_idCONVOCATORIA` )
-    REFERENCES `pfc`.`CONVOCATORIA` (`idCONVOCATORIA` )
+    REFERENCES `gestionasignaturas`.`CONVOCATORIA` (`idCONVOCATORIA` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`MATRICULA`
+-- Table `gestionasignaturas`.`MATRICULA`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`MATRICULA` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`MATRICULA` (
   `Cod_MATRICULA` INT NOT NULL ,
   `ALUMNO_DNI` VARCHAR(16) NOT NULL ,
   `GRUPO_CLASE_Cod_GC` VARCHAR(16) NOT NULL ,
@@ -209,26 +209,26 @@ CREATE  TABLE IF NOT EXISTS `pfc`.`MATRICULA` (
   INDEX `fk_MATRICULA_CURSO1` (`CURSO_Cod_CURSO` ASC) ,
   CONSTRAINT `fk_MATRICULA_ALUMNO1`
     FOREIGN KEY (`ALUMNO_DNI` )
-    REFERENCES `pfc`.`ALUMNO` (`DNI` )
+    REFERENCES `gestionasignaturas`.`ALUMNO` (`DNI` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_MATRICULA_GRUPO_CLASE1`
     FOREIGN KEY (`GRUPO_CLASE_Cod_GC` )
-    REFERENCES `pfc`.`GRUPO_CLASE` (`Cod_GC` )
+    REFERENCES `gestionasignaturas`.`GRUPO_CLASE` (`Cod_GC` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_MATRICULA_CURSO1`
     FOREIGN KEY (`CURSO_Cod_CURSO` )
-    REFERENCES `pfc`.`CURSO` (`Cod_CURSO` )
+    REFERENCES `gestionasignaturas`.`CURSO` (`Cod_CURSO` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pfc`.`TUTORIA`
+-- Table `gestionasignaturas`.`TUTORIA`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pfc`.`TUTORIA` (
+CREATE  TABLE IF NOT EXISTS `gestionasignaturas`.`TUTORIA` (
   `Cod_TUTORIA` INT NOT NULL ,
   `PROFESOR_Cod_P` INT NOT NULL ,
   `GRUPO_PRACTICA_Cod_GP` INT NOT NULL ,
@@ -241,22 +241,22 @@ CREATE  TABLE IF NOT EXISTS `pfc`.`TUTORIA` (
   INDEX `fk_TUTORIA_CONVOCATORIA1` (`CONVOCATORIA_idCONVOCATORIA` ASC) ,
   CONSTRAINT `fk_TUTORIA_PROFESOR1`
     FOREIGN KEY (`PROFESOR_Cod_P` )
-    REFERENCES `pfc`.`PROFESOR` (`Cod_P` )
+    REFERENCES `gestionasignaturas`.`PROFESOR` (`Cod_P` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_TUTORIA_GRUPO_PRACTICA1`
     FOREIGN KEY (`GRUPO_PRACTICA_Cod_GP` )
-    REFERENCES `pfc`.`GRUPO_PRACTICA` (`Cod_GP` )
+    REFERENCES `gestionasignaturas`.`GRUPO_PRACTICA` (`Cod_GP` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_TUTORIA_CURSO1`
     FOREIGN KEY (`CURSO_Cod_CURSO` )
-    REFERENCES `pfc`.`CURSO` (`Cod_CURSO` )
+    REFERENCES `gestionasignaturas`.`CURSO` (`Cod_CURSO` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_TUTORIA_CONVOCATORIA1`
     FOREIGN KEY (`CONVOCATORIA_idCONVOCATORIA` )
-    REFERENCES `pfc`.`CONVOCATORIA` (`idCONVOCATORIA` )
+    REFERENCES `gestionasignaturas`.`CONVOCATORIA` (`idCONVOCATORIA` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

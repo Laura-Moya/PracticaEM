@@ -14,23 +14,23 @@ import java.sql.SQLException;
 public class DataAccessObject {
 
 
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    /** Contiene la dirección de la Base de Datos.
-     *  Se inicializa al comenzar la aplicación.
-     *  El usuario podrá modificarlo en el menú de configuración.
+    /** Contiene la direcciÃ³n de la Base de Datos.
+     *  Se inicializa al comenzar la aplicaciÃ³n.
+     *  El usuario podrÃ¡ modificarlo en el menÃº de configuraciÃ³n.
      */    
     public static String URL;
 
-    /** Contiene el usuario para la conexión a la Base de Datos.
-     *  Se inicializa al comenzar la aplicación.
-     *  El usuario podrá modificarlo en el menú de configuración.
+    /** Contiene el usuario para la conexiÃ³n a la Base de Datos.
+     *  Se inicializa al comenzar la aplicaciÃ³n.
+     *  El usuario podrÃ¡ modificarlo en el menÃº de configuraciÃ³n.
      */
     public static String USER;
 
-    /** Contiene la contraseña para la conexión a la Base de Datos.
-     *  Se inicializa al comenzar la aplicación.
-     *  El usuario podrá modificarlo en el menú de configuración.
+    /** Contiene la contraseÃ±a para la conexiÃ³n a la Base de Datos.
+     *  Se inicializa al comenzar la aplicaciÃ³n.
+     *  El usuario podrÃ¡ modificarlo en el menÃº de configuraciÃ³n.
      */
     public static String PASS;
 
@@ -38,9 +38,9 @@ public class DataAccessObject {
     private PreparedStatement statement = null;
     private Connection connection;
 
-    /** Método que nos devuelve el objeto dataAccessObject estático que tiene la clase.
+    /** MÃ©todo que nos devuelve el objeto dataAccessObject estÃ¡tico que tiene la clase.
      * La primera vez que se llama a getDataAccessObjectConnected() crea el objeto DataAccessObject
-     * y hará la conexión a la BD. En cualquier caso se hace “return DataAccessObject” para que
+     * y harÃ¡ la conexiÃ³n a la BD. En cualquier caso se hace â€œreturn DataAccessObjectâ€� para que
      * podamos usar el objeto
      *
      * @return dataAccessObject
@@ -53,10 +53,10 @@ public class DataAccessObject {
 	
             return dataAccessObject;
 
-    } // fin del método getDataAccessObjectConnected
+    } // fin del mÃ©todo getDataAccessObjectConnected
 
 
-    /** Método que devuelve el objeto statement con el que realizaremos
+    /** MÃ©todo que devuelve el objeto statement con el que realizaremos
      * las consultas sql.
      *
      * @param sql contiene la consulta sql a realizar
@@ -73,13 +73,13 @@ public class DataAccessObject {
             throw new RuntimeException("Problema al obtener el prepared statement"
                                      + " el sql es: "+sql);
         }
-    } // fin del método getPreparedStatement
+    } // fin del mÃ©todo getPreparedStatement
 
     private DataAccessObject(){}
 
-    /** Este método se encarga de cargar el Driver MySQL y de realizar
-     *  la conexión a la Base de Datos. Si ocurre algún error al cargar el Driver
-     *  o al intentar conectar a la Base de Datos, el método lanzará una excepción.
+    /** Este mÃ©todo se encarga de cargar el Driver MySQL y de realizar
+     *  la conexiÃ³n a la Base de Datos. Si ocurre algÃºn error al cargar el Driver
+     *  o al intentar conectar a la Base de Datos, el mÃ©todo lanzarÃ¡ una excepciÃ³n.
      *
      */
     private void connect(){
@@ -92,11 +92,11 @@ public class DataAccessObject {
 	} catch (SQLException e) {
 		throw new RuntimeException("Ha ocurrido un error al conectar con la Base de Datos");
 	}
-    } // fin del método connect
+    } // fin del mÃ©todo connect
 
 
-   /** Método que ejecuta la consulta SQL para insertar, borrar o actualizar.
-     * Si ocurre algún error, lanzará una excepción.
+   /** MÃ©todo que ejecuta la consulta SQL para insertar, borrar o actualizar.
+     * Si ocurre algÃºn error, lanzarÃ¡ una excepciÃ³n.
      */
     public void actualizar (){
 	try{
@@ -106,14 +106,14 @@ public class DataAccessObject {
             System.out.println(e.getSQLState());
             e.printStackTrace();
             System.out.println(e.getMessage());
-            throw new RuntimeException("Error de actualización ");
+            throw new RuntimeException("Error de actualizaciÃ³n ");
 	}
-    } // fin del método actualizar
+    } // fin del mÃ©todo actualizar
 
 
-    /** Método que libera los recursos de la Base de Datos y se encarga de
-     *  cerrar la conexión a la Base de Datos.
-     *  Si ocurre algún error, lanzará una excepción.
+    /** MÃ©todo que libera los recursos de la Base de Datos y se encarga de
+     *  cerrar la conexiÃ³n a la Base de Datos.
+     *  Si ocurre algÃºn error, lanzarÃ¡ una excepciÃ³n.
      */
     public void close () {
         try {
@@ -121,14 +121,14 @@ public class DataAccessObject {
             this.closeConnection();
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Problema al cerrar la conexión con la Base de Datos");
+            throw new RuntimeException("Problema al cerrar la conexiÃ³n con la Base de Datos");
         }
-    } // fin del método close
+    } // fin del mÃ©todo close
 	
 	
-    /** Método que realiza la entrega (commit) de la sentencia sql y 
-     *  cierra la conexión a la Base de Datos.
-     *  Si ocurre algún error, lanzará una excepción.
+    /** MÃ©todo que realiza la entrega (commit) de la sentencia sql y 
+     *  cierra la conexiÃ³n a la Base de Datos.
+     *  Si ocurre algÃºn error, lanzarÃ¡ una excepciÃ³n.
      */
     private void closeConnection () {
         try {
@@ -137,12 +137,12 @@ public class DataAccessObject {
             connection.close();
         } catch (SQLException ex) {
  //           this.rollback();
-            throw new RuntimeException("Problema al cerrar la conexión");
+            throw new RuntimeException("Problema al cerrar la conexiÃ³n");
         }
-    } // fin del método closeConnection
+    } // fin del mÃ©todo closeConnection
 
 
-    /** Método que aborta la transación y devuelve cualquier valor
+    /** MÃ©todo que aborta la transaciÃ³n y devuelve cualquier valor
      *  que fuera modificado a sus valores anteriores.
      *
      */
@@ -156,6 +156,6 @@ public class DataAccessObject {
         } catch (SQLException ex) {
             System.out.println("Problema al hacer rollback");
         }
-    } // fin del método rollback
+    } // fin del mÃ©todo rollback
 
 } // fin de la clase DataAccessObject

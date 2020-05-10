@@ -1,2 +1,3 @@
-jdbc:mysql://localhost:3306/gestionasignaturas
+jdbc:mysql://localhost:3306/gestionasignaturas?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
 root
+LYfv1WCNI2

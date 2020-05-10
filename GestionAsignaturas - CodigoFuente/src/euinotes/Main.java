@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            FileInputStream fis = new FileInputStream("config/config.txt");
+            FileInputStream fis = new FileInputStream("c:\\Users\\victo\\Desktop\\EMS\\GestionAsignaturas - Ejecutable\\Ejecutable\\config\\config.txt");
             InputStreamReader is = new InputStreamReader(fis, "ISO-8859-1");
             BufferedReader lector = new BufferedReader(is);
             System.out.println();
